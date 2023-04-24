@@ -7,21 +7,25 @@ locks = deque(map(int, input().split()))
 inteL_value = int(input())
 count = 0
 
-for i in reversed(bullets):
+while len(locks) > 0:
     if inteL_value > 0:
-        if count == barrel_size:
-            print("Reloading!")
-            count = 0
-        else:
-            if len(locks) > 0:
-                if i - locks[0] <= 0:
-                    print('Bang!')
-                    locks.popleft()
-                    count += 1
-                else:
-                    print('Ping!')
-                    count += 1
+        if len(locks) > 0 and len(bullets) > 0:
+            if bullets[-1] - locks[0] <= 0:
+                print('Bang!')
+                locks.popleft()
+                bullets.pop()
+                count += 1
+                if count == barrel_size:
+                    print("Reloading!")
+                    count = 0
             else:
-                break
+                print('Ping!')
+                bullets.pop()
+                count += 1
+                if count == barrel_size:
+                    print("Reloading!")
+                    count = 0
+        else:
+            break
     else:
         break
