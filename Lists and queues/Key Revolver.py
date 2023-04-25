@@ -32,4 +32,4 @@ while len(locks) > 0:
             print(f"Couldn't get through. Locks left: {len(locks)}")
             break
 else:
-    print(f'{count} bullets left. Earned ${inteL_value - bullet_price * count_bullets}')
+    print(f'{len(bullets)} bullets left. Earned ${inteL_value - bullet_price * count_bullets}')
