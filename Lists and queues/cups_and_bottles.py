@@ -21,8 +21,10 @@ while True:
         continue
 
 if len(cups) == 0:
-    print(f'Bottles: {[]}')
-    print(f'Wasted liters of water: {wasted_water}')
+    print("Bottles: ", end="")
+    print(*bottles)
+    print(f'Wasted litters of water: {wasted_water}')
 elif len(bottles) == 0:
-    print(f'Cups: {print(*cups)}')
-    print(f'Wasted liters of water: {wasted_water}')
+    print("Cups: ", end="")
+    print(*cups)
+    print(f'Wasted litters of water: {wasted_water}')
