@@ -1,11 +1,11 @@
 sentence = input()
 lst = []
 [lst.append(letter) for letter in sentence]
-tpl = tuple(lst)
+tpl = sorted(tuple(lst))
 dict = {}
 
 for i in tpl:
     dict[i] = tpl.count(i)
 
-for letter, count in sorted(dict.items()):
+for letter, count in dict.items():
     print(f'{letter}: {count} time/s')
