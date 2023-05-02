@@ -2,15 +2,24 @@ first_seq = set([int(i) for i in input().split()])
 second_seq = set([int(i) for i in input().split()])
 n = int(input())
 
-myd_dict = {
-    'Add first': lambda x: first_seq.add(x),
-    'Add second': lambda x: second_seq.add(x),
-    'Remove first': lambda x: first_seq.remove(x),
-    'Remove second': lambda x: second_seq.remove(x)
-}
+for i in range(n):
+    first_command, *data = input().split()
 
-for _ in range(n):
-    data = [x for x in input().split()]
-    myd_dict[data[0] + ' ' + data[1]](data[2])
-print(first_seq)
-print(second_seq)
+    command = first_command + ' ' + data.pop(0)
+
+    if command == 'Add First':
+        [first_seq.add(int(i)) for i in data]
+    elif command == 'Add Second':
+        [second_seq.add(int(i)) for i in data]
+    elif command == 'Remove First':
+        [first_seq.discard(int(i)) for i in data]
+    elif command == 'Remove Second':
+        [second_seq.discard(int(i)) for i in data]
+    else:
+        if first_seq.issubset(second_seq) or second_seq.issubset(first_seq):
+            print(True)
+        else:
+            print(False)
+
+print(*sorted(first_seq), sep=', ')
+print(*sorted(second_seq), sep=', ')
