@@ -1,21 +1,23 @@
 from collections import deque
+from functools import reduce
 
 expression = input().split()
 operators = ['+', '-', '*', '/']
-exp_queue = deque()
-product = 1
+exp_queue = []
 
 for i in expression:
     if i not in operators:
-        exp_queue.append(i)
-    else:
-        for x in exp_queue:
-            if i == '+':
-                product += int(exp_queue.popleft())
-            elif i == '-':
-                product -= int(exp_queue.popleft())
-            elif i == '*':
-                product *= int(exp_queue.popleft())
-            elif i == '/':
-                product /= int(exp_queue.popleft())
-print(product)
+        exp_queue.append(int(i))
+    elif i == '-':
+        result = reduce(lambda x, y: x - y, exp_queue)
+        exp_queue = []
+        exp_queue.append(result)
+    elif i == '*':
+        result = reduce(lambda x, y: x * y, exp_queue)
+        exp_queue = []
+        exp_queue.append(result)
+    elif i == '/':
+        result = reduce(lambda x, y: x / y, exp_queue)
+        exp_queue = []
+        exp_queue.append(result)
+print(int(*exp_queue))
