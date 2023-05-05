@@ -9,22 +9,26 @@ while True:
         if len(chocolate) > 0 and len(milk_cups) > 0:
             result = chocolate[-1] - milk_cups[0]
 
-            if result == 0:
-                chocolate.pop()
-                milk_cups.popleft()
-                milkshakes += 1
-            else:
+            if chocolate[-1] <= 0 or milk_cups[0] <= 0:
                 if chocolate[-1] <= 0:
                     chocolate.pop()
                 elif milk_cups[0] <= 0:
                     milk_cups.popleft()
+            else:
+                if result == 0:
+                    chocolate.pop()
+                    milk_cups.popleft()
+                    milkshakes += 1
                 else:
                     milk_cups.append(milk_cups[0])
                     milk_cups.popleft()
                     chocolate[-1] -= 5
         else:
             print('Not enough milkshakes.')
-            if len(chocolate) == 0:
+            if len(chocolate) == 0 and len(milk_cups) == 0:
+                print('Chocolate: empty')
+                print('Milk: empty')
+            elif len(chocolate) == 0:
                 print('Chocolate: empty')
                 print(f'Milk: {", ".join([str(i) for i in milk_cups])}')
             elif len(milk_cups) == 0:
