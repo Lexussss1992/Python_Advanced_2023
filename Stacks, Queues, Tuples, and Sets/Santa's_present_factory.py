@@ -43,9 +43,11 @@ else:
     print('No presents this Christmas!')
 
 if material_boxes and magic_values:
-    print(f'Materials left: {[str(x) for x in material_boxes]}')
-    print(f'Magic left: {[str(x) for x in magic_values]}')
+    print(f'Materials left: {", ".join([str(x) for x in material_boxes][::-1])}')
+    print(f'Magic left: {", ".join(str(x) for x in magic_values)}')
 elif not material_boxes:
-    print(f'Magic left: {[str(x) for x in magic_values]}')
+    print(f'Magic left: {", ".join(str(x) for x in magic_values)}')
 elif not magic_values:
-    print(f'Materials left: {[str(x) for x in material_boxes]}')
+    print(f'Materials left: {", ".join([str(x) for x in material_boxes][::-1])}')
+
+[print(f'{toy}: {presents.count(toy)}') for toy in sorted(set(presents))]
