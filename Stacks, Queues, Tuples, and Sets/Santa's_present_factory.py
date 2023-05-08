@@ -13,23 +13,20 @@ info = {
 presents = []
 
 while material_boxes and magic_values:
-    last_box = material_boxes.pop()
-    first_magic_value = magic_values.popleft()
+    last_box = material_boxes.pop() if magic_values[0] or not material_boxes[0] else 0
+    first_magic_value = magic_values.popleft() if last_box or not magic_values[0] else 0
+
+    if not magic_values:
+        continue
+
     result = last_box * first_magic_value
 
     if result in info:
         presents.append(info.get(result)[0])
-
     elif result < 0:
         material_boxes.append(last_box + first_magic_value)
     elif result > 0:
         material_boxes.append(last_box + 15)
-    elif last_box == 0 and first_magic_value == 0:
-        continue
-    elif last_box == 0:
-        magic_values.appendleft(first_magic_value)
-    elif first_magic_value == 0:
-        material_boxes.append(last_box)
 
 for key, value in info.items():
     if value in presents:
