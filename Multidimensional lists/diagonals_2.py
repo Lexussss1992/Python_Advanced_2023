@@ -3,7 +3,7 @@ matrix = []
 
 for i in range(n):
     matrix.append([])
-    for j in range(n):
-        matrix[i].append(j + 1)
+    for j in range(1, n + 1):
+        matrix[i].append(j + (i * 3))
 
 print(matrix)
