@@ -9,7 +9,10 @@ matrix_copy = matrix.copy()
 while user_input != 'END':
     command, coordinates = user_input.popleft(), [int(x) for x in user_input]
     if command == 'swap':
-        matrix.pop(el1)
+        el1 = matrix[coordinates[0]][coordinates[1]]
+        el2 = matrix[coordinates[2]][coordinates[3]]
+        matrix_copy[coordinates[2]][coordinates[3]] = el1
+        matrix_copy[coordinates[0]][coordinates[1]] = el2
         print(matrix_copy)
     user_input = deque([x for x in input().split()])
 
