@@ -4,11 +4,13 @@ rows, cols = [int(x) for x in input().split()]
 
 matrix = [[x for x in input().split()] for u in range(rows)]
 user_input = deque([x for x in input().split()])
+matrix_copy = matrix.copy()
 
 while user_input != 'END':
     command, coordinates = user_input.popleft(), [int(x) for x in user_input]
-    print(command)
-    print(coordinates)
+    if command == 'swap':
+        matrix.pop(el1)
+        print(matrix_copy)
     user_input = deque([x for x in input().split()])
 
 # 2 3
