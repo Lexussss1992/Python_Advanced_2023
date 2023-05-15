@@ -3,6 +3,7 @@ matrix = []
 dimensions_row_col = []
 players_touched = 0
 moves_count = 0
+total_players = 3
 
 for x in range(rows):
     matrix.append([])
@@ -42,9 +43,9 @@ while command != 'Finish':
                 players_touched += 1
                 moves_count += 1
                 dimensions_row_col[0] += 1
-            elif matrix[dimensions_row_col[0] - 1][dimensions_row_col[1]] == '-':
+            elif matrix[dimensions_row_col[0] + 1][dimensions_row_col[1]] == '-':
                 matrix[dimensions_row_col[0]][dimensions_row_col[1]] = '-'
-                matrix[dimensions_row_col[0] - 1][dimensions_row_col[1]] = 'B'
+                matrix[dimensions_row_col[0] + 1][dimensions_row_col[1]] = 'B'
                 moves_count += 1
                 dimensions_row_col[0] += 1
     elif command == 'right':
@@ -74,17 +75,18 @@ while command != 'Finish':
                 players_touched += 1
                 moves_count += 1
                 dimensions_row_col[1] -= 1
-            elif matrix[dimensions_row_col[0] - 1][dimensions_row_col[1]] == '-':
+            elif matrix[dimensions_row_col[0]][dimensions_row_col[1] - 1] == '-':
                 matrix[dimensions_row_col[0]][dimensions_row_col[1]] = '-'
-                matrix[dimensions_row_col[0] - 1][dimensions_row_col[1]] = 'B'
+                matrix[dimensions_row_col[0]][dimensions_row_col[1] - 1] = 'B'
                 moves_count += 1
                 dimensions_row_col[0] += 1
+    if players_touched == total_players:
+        break
     command = input()
 
-print(*matrix)
-print(dimensions_row_col)
-print(players_touched)
-print(moves_count)
+print('Game over!')
+print(f'Touched opponents: {players_touched} Moves made: {moves_count}')
+
 # 5 8
 # - - - O - P - O
 # - P - O O - - -
@@ -95,7 +97,7 @@ print(moves_count)
 # up
 # left
 # Finish
-
+#
 # 4 4
 # O B O -
 # - P O P
