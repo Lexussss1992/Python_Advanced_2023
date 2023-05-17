@@ -1,13 +1,16 @@
 n = int(input())
-matrix = [input().split() for x in range(n)]
-k_matrix = []
 
-for x in matrix:
-    k_matrix.append(*x)
+matrix = []
+coordinates = []
 
-for i in range(len(k_matrix)):
-    for x in k_matrix[i]:
-        print(x)
+for i in range(n):
+    matrix.append(input())
 
-print(k_matrix)
+for x in range(len(matrix)):
+    for j in range(len(matrix[x])):
+        if matrix[x][j] == 'K':
+            coordinates.append(x)
+            coordinates.append(j)
+
 print(matrix)
+print(coordinates)
