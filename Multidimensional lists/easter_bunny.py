@@ -8,28 +8,22 @@ for i in range(len(matrix)):
             bunny_coordinates.append(i)
             bunny_coordinates.append(x)
 
-# 5
-# 1 3 7 9 11
-# X 5 4 X 63
-# 7 3 21 95 1
-# B 1 73 4 9
-# 9 2 33 2 0
-condition = True
 up = 0
+up_list = []
 right = 0
+right_list = []
 left = 0
+left_list = []
 down = 0
+down_list = []
 
-for x in range(bunny_coordinates[0], -1, -1): #up
-    for i in range(bunny_coordinates[1], -1, -1):
-        if matrix[x][i] != 'B':
-            if matrix[x][i] == 'X':
-                condition = False
-                break
-            else:
-                up += int(matrix[x][i])
-    if condition == False:
-        break
+for x in range(bunny_coordinates[0], 0, -1): #up
+    if matrix[x][bunny_coordinates[1]] != 'B':
+        if matrix[x][bunny_coordinates[1]] == 'X':
+            break
+        else:
+            up += int(matrix[x][bunny_coordinates[1]])
+            up_list.append([x, bunny_coordinates[1]])
 
 for i in range(bunny_coordinates[1], len(matrix)): #right
     if matrix[bunny_coordinates[0]][i] != 'B':
@@ -37,6 +31,7 @@ for i in range(bunny_coordinates[1], len(matrix)): #right
             break
         else:
             right += int(matrix[bunny_coordinates[0]][i])
+            right_list.append([bunny_coordinates[0], i])
 
 
 for i in range(bunny_coordinates[1], 0, -1): #left
@@ -45,18 +40,17 @@ for i in range(bunny_coordinates[1], 0, -1): #left
             break
         else:
             left += int(matrix[bunny_coordinates[0]][i])
+            left_list.append([bunny_coordinates[0], i])
 
 for x in range(bunny_coordinates[0], n): #down
-    if matrix[x][0] != 'B':
-        if matrix[x][0] == 'X':
+    if matrix[x][bunny_coordinates[1]] != 'B':
+        if matrix[x][bunny_coordinates[1]] == 'X':
             break
         else:
-            down += int(matrix[x][0])
+            down += int(matrix[x][bunny_coordinates[1]])
+            down_list.append([x, bunny_coordinates[1]])
 
-print(up)
-print(down)
-print(right)
-print(left)
+
 
 # 8
 # 4 18 9 7 24 41 52 11
