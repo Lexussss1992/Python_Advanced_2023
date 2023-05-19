@@ -10,20 +10,11 @@ for i in range(len(matrix)):
             bunny_coordinates.append(i)
             bunny_coordinates.append(x)
 
-up = 0
-up_list = []
-right = 0
-right_list = []
-left = 0
-left_list = []
-down = 0
-down_list = []
-
 dict = {
     'up': [0, []],
-    'down': 0,
-    'left': 0,
-    'right': 0
+    'down': [0, []],
+    'left': [0, []],
+    'right': [0, []]
 }
 
 for x in range(bunny_coordinates[0], -1, -1): #up
@@ -35,33 +26,46 @@ for x in range(bunny_coordinates[0], -1, -1): #up
                 if key == 'up':
                     value[1].append([x, bunny_coordinates[1]])
                     value[0] += int(matrix[x][bunny_coordinates[1]])
-print(dict)
-# for i in range(bunny_coordinates[1], len(matrix)): #right
-#     if matrix[bunny_coordinates[0]][i] != 'B':
-#         if matrix[bunny_coordinates[0]][i] == 'X':
-#             break
-#         else:
-#             right += int(matrix[bunny_coordinates[0]][i])
-#             right_list.append([bunny_coordinates[0], i])
-#
-#
-# for i in range(bunny_coordinates[1], 0, -1): #left
-#     if matrix[bunny_coordinates[0]][i] != 'B':
-#         if matrix[bunny_coordinates[0]][i] == 'X':
-#             break
-#         else:
-#             left += int(matrix[bunny_coordinates[0]][i])
-#             left_list.append([bunny_coordinates[0], i])
-#
-# for x in range(bunny_coordinates[0], n): #down
-#     if matrix[x][bunny_coordinates[1]] != 'B':
-#         if matrix[x][bunny_coordinates[1]] == 'X':
-#             break
-#         else:
-#             down += int(matrix[x][bunny_coordinates[1]])
-#             down_list.append([x, bunny_coordinates[1]])
 
 
+for i in range(bunny_coordinates[1], len(matrix)): #right
+    if matrix[bunny_coordinates[0]][i] != 'B':
+        if matrix[bunny_coordinates[0]][i] == 'X':
+            break
+        else:
+            for key, value in dict.items():
+                if key == 'right':
+                    value[1].append([bunny_coordinates[0], i])
+                    value[0] += int(matrix[bunny_coordinates[0]][i])
+
+
+for i in range(bunny_coordinates[1], 0, -1): #left
+    if matrix[bunny_coordinates[0]][i] != 'B':
+        if matrix[bunny_coordinates[0]][i] == 'X':
+            break
+        else:
+            for key, value in dict.items():
+                if key == 'left':
+                    value[1].append([bunny_coordinates[0], i])
+                    value[0] += int(matrix[bunny_coordinates[0]][i])
+#
+for x in range(bunny_coordinates[0], n): #down
+    if matrix[x][bunny_coordinates[1]] != 'B':
+        if matrix[x][bunny_coordinates[1]] == 'X':
+            break
+        else:
+            for key, value in dict.items():
+                if key == 'down':
+                    value[1].append([x, bunny_coordinates[1]])
+                    value[0] += int(matrix[x][bunny_coordinates[1]])
+
+max_value = max(dict.values())
+max_key = max(dict, key=dict.get)
+print(max_key)
+for i in max_value[1]:
+    print(i)
+
+print(max_value[0])
 
 # 8
 # 4 18 9 7 24 41 52 11
