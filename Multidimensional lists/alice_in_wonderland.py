@@ -1,119 +1,46 @@
-def check_if_valid(matrix, command, coordinates):
-    if command == 'right':
-        if coordinates[1] > n - 1 or matrix[coordinates[0]][coordinates[1] + 1] == 'R':
-            if matrix[coordinates[0]][coordinates[1] + 1] == 'R':
-                matrix[coordinates[0]][coordinates[1] + 1] = '*'
-                matrix[coordinates[0]][coordinates[1]] = '*'
-            else:
-                matrix[coordinates[0]][coordinates[1]] = '*'
-            return True
-    elif command == 'left':
-        if coordinates[1] < 0 or matrix[coordinates[0]][coordinates[1] - 1] == 'R':
-            if matrix[coordinates[0]][coordinates[1] - 1] == 'R':
-                matrix[coordinates[0]][coordinates[1] - 1] = '*'
-                matrix[coordinates[0]][coordinates[1]] = '*'
-            else:
-                matrix[coordinates[0]][coordinates[1]] = '*'
-            return True
-    elif command == 'down':
-        if coordinates[0] > n - 1 or matrix[coordinates[0] + 1][coordinates[1]] == 'R':
-            if matrix[coordinates[0] + 1][coordinates[1]] == 'R':
-                matrix[coordinates[0] + 1][coordinates[1]] = '*'
-                matrix[coordinates[0]][coordinates[1]] = '*'
-            else:
-                matrix[coordinates[0]][coordinates[1]] = '*'
-            return True
-    elif command == 'up':
-        if coordinates[0] < 0 or matrix[coordinates[0] - 1][coordinates[1]] == 'R':
-            if matrix[coordinates[0] - 1][coordinates[1]] == 'R':
-                matrix[coordinates[0] - 1][coordinates[1]] = '*'
-                matrix[coordinates[0]][coordinates[1]] = '*'
-            else:
-                matrix[coordinates[0]][coordinates[1]] = '*'
-            return True
-
 n = int(input())
 matrix = [input().split() for i in range(n)]
 coordinates = []
 tea_bags_quantity = 0
-tea_bags_number = 0
 
 for i in range(len(matrix)):
     for x in range(len(matrix[i])):
         if matrix[i][x] == 'A':
             coordinates.append(i)
             coordinates.append(x)
+            matrix[i][x] = '*'
             break
+
+directions = {
+    'up': (-1, 0),
+    'down': (1, 0),
+    'left': (0, -1),
+    'right': (0, 1),
+}
 
 while tea_bags_quantity < 10:
     command = input()
-    if check_if_valid(matrix, command, coordinates):
-        print("Alice didn't make it to the tea party.")
+
+    row = coordinates[0] + directions[command][0]
+    col = coordinates[1] + directions[command][1]
+
+    if not(0 <= row < n and 0 <= col < n):
         break
-    if command == 'right':
-        if matrix[coordinates[0]][coordinates[1] + 1].isnumeric():
-            tea_bags_quantity += int(matrix[coordinates[0]][coordinates[1] + 1])
-            tea_bags_number += 1
-            matrix[coordinates[0]][coordinates[1] + 1] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[1] += 1
-        elif matrix[coordinates[0]][coordinates[1] + 1] == '.':
-            matrix[coordinates[0]][coordinates[1] + 1] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[1] += 1
-        elif matrix[coordinates[0]][coordinates[1] + 1] == '*':
-            matrix[coordinates[0]][coordinates[1] + 1] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[1] += 1
-    elif command == 'left':
-        if matrix[coordinates[0]][coordinates[1] - 1].isnumeric():
-            tea_bags_quantity += int(matrix[coordinates[0]][coordinates[1] - 1])
-            tea_bags_number += 1
-            matrix[coordinates[0]][coordinates[1] - 1] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[1] -= 1
-        elif matrix[coordinates[0]][coordinates[1] - 1] == '.':
-            matrix[coordinates[0]][coordinates[1] - 1] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[1] -= 1
-        elif matrix[coordinates[0]][coordinates[1] - 1] == '*':
-            matrix[coordinates[0]][coordinates[1] - 1] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[1] -= 1
-    elif command == 'down':
-        if matrix[coordinates[0] + 1][coordinates[1]].isnumeric():
-            tea_bags_quantity += int(matrix[coordinates[0] + 1][coordinates[1]])
-            tea_bags_number += 1
-            matrix[coordinates[0] + 1][coordinates[1]] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[0] += 1
-        elif matrix[coordinates[0] + 1][coordinates[1]] == '.':
-            matrix[coordinates[0] + 1][coordinates[1]] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[0] += 1
-        elif matrix[coordinates[0] + 1][coordinates[1]] == '*':
-            matrix[coordinates[0] + 1][coordinates[1]] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[0] += 1
-    elif command == 'up':
-        if matrix[coordinates[0] - 1][coordinates[1]].isnumeric():
-            tea_bags_quantity += int(matrix[coordinates[0] - 1][coordinates[1]])
-            tea_bags_number += 1
-            matrix[coordinates[0] - 1][coordinates[1]] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[0] -= 1
-        elif matrix[coordinates[0] - 1][coordinates[1]] == '.':
-            matrix[coordinates[0] - 1][coordinates[1]] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[0] -= 1
-        elif matrix[coordinates[0] - 1][coordinates[1]] == '*':
-            matrix[coordinates[0] - 1][coordinates[1]] = 'A'
-            matrix[coordinates[0]][coordinates[1]] = '*'
-            coordinates[0] -= 1
 
-if tea_bags_quantity >= 10:
-    matrix[coordinates[0]][coordinates[1]] = '*'
-    print('She did it! She went to the party.')
+    coordinates = [row, col]
+    position = matrix[row][col]
+    matrix[row][col] = '*'
 
-for i in range(len(matrix)):
-    print(*matrix[i])
+    if position == 'R':
+        break
+
+    if position.isnumeric():
+        tea_bags_quantity += int(position)
+
+if tea_bags_quantity < 10:
+    print("Alice didn't make it to the tea party.")
+else:
+    print("She did it! She went to the party.")
+
+print(*[' '.join(row) for row in matrix], sep='\n')
+
