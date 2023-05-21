@@ -17,17 +17,12 @@ directions = {
 
 for i in range(number_of_commands):
     first_command, *data = [i for i in input().split()]
+    direction = data[0]
+    steps = data[1] if len(data) == 2 else []
 
-    if data == 2:
-        direction = data[0]
-        steps = int(data[1])
-    else:
-        direction = data[0]
-
-    if direction == 'move':
-        pass
-    elif direction == 'shoot':
-        pass
+    print(first_command)
+    print(direction)
+    print(steps)
 
 print(coordinates)
 print(matrix)
