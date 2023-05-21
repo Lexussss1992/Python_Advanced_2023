@@ -9,20 +9,19 @@ for i in range(len(matrix)):
             coordinates.append(j)
 
 directions = {
-    'up': (-1, 0),
-    'down': (1, 0),
-    'left': (0, -1),
-    'right': (0, 1),
+    'up': [0, -1],
+    'down': [0, 1],
+    'left': [0, -1],
+    'right': [0, 1]
 }
 
 for i in range(number_of_commands):
     first_command, *data = [i for i in input().split()]
     direction = data[0]
-    steps = data[1] if len(data) == 2 else []
+    steps = int(data[1]) if len(data) == 2 else 0
+    directions[direction][0] += steps
 
-    print(first_command)
-    print(direction)
-    print(steps)
 
 print(coordinates)
 print(matrix)
+print(directions)
