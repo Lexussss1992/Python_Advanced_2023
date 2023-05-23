@@ -11,7 +11,8 @@ def even_odd_filter(**kwargs):
             for i in value:
                 if i % 2 != 0:
                     dict[key].append(i)
-    return dict
+    sorted_dict = {k: v for k, v in sorted(dict.items(), key=lambda item: -len(item[1]))}
+    return sorted_dict
 
 
 print(even_odd_filter(
