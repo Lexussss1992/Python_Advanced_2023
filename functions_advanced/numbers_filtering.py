@@ -1,16 +1,11 @@
 def even_odd_filter(**args):
-    dict = {
-
-    }
     for key, value in args.items():
         if key == 'even':
             for x in value:
-                if x % 2 == 0:
-                    return value
+                return args.values() if x % 2 == 0 else None
         elif key == 'odd':
             for x in value:
-                if x % 2 != 0:
-                    return value
+                return args.values() if x % 2 != 0 else None
 
 
 print(even_odd_filter(
