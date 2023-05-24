@@ -1,17 +1,9 @@
-def concatenate(*args, **kwargs):
-    string = []
-    for i in args:
-        string.append(i)
+def concatenate(*words, **kwargs):
+    text = ''.join(words)
 
-    conc_str = ''.join(string)
+    for key, value in kwargs.items():
+        text = text.replace(key, value)
 
-    for i in conc_str:
-        for key, value in kwargs.items():
-            if i == key:
-                idx = conc_str.index(i)
-                conc_str = value
-    return conc_str
-
-
+    return text
 
 print(concatenate("I", " ", "Love", " ", "Cythons", C="P", s="", java='Java'))
