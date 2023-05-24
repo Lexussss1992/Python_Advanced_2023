@@ -1,15 +1,19 @@
 def func_executor(*func):
-    fumction_name = []
-    function_result = []
-    for i in func:
-        fumction_name.append()
-        function_result.append(i[0](*i[1]))
-    return fumction_name, function_result
+    result = []
+    for key, value in func:
+        result.append(f"{key.__name__} - {key(*value)}")
 
-def sum_numbers(num1, num2):
-    return num1 + num2
+    return '\n'.join(result)
 
-def multiply_numbers(num1, num2):
-    return num1 * num2
 
-print(func_executor( (sum_numbers, (1, 2)), (multiply_numbers, (2, 4)) ))
+def make_upper(*strings):
+    result = tuple(s.upper() for s in strings)
+    return result
+
+
+def make_lower(*strings):
+    result = tuple(s.lower() for s in strings)
+    return result
+
+
+print(func_executor( (make_upper, ("Python", "softUni")), (make_lower, ("PyThOn",)), ))
