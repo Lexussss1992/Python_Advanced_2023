@@ -3,20 +3,26 @@ from collections import deque
 
 def math_operations(*args, **kwargs):
     deque_args = deque(i for i in args)
-    result = []
-    deq_value = deque_args.popleft()
-    while deque_args:
+    result = [0, 0, 0, 0]
+    while len(deque_args) > 0:
         for key, value in kwargs.items():
+            deq_value = deque_args[0]
             if key == 'a':
-                result.append([deq_value + value])
+                result[0] = deq_value + value
+                kwargs[key] = result[0]
             elif key == 's':
-                result.append([deq_value - value])
+                result[1] = value - deq_value
+                kwargs[key] = result[1]
             elif key == 'd':
-                if deque_args.popleft() != 0:
-                    result.append([deq_value / value])
+                if deq_value != 0:
+                    result[2] = value / deq_value
+                    kwargs[key] = result[1]
             elif key == 'm':
-                result.append([deq_value * value])
+                result[3] = deq_value * value
+                kwargs[key] = result[3]
             deq_value = deque_args.popleft()
+            if len(deque_args) <= 0:
+                break
 
     return result, deque_args
 
