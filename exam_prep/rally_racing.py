@@ -48,7 +48,6 @@ while command != 'End':
         km += 10
         matrix[car_poss[0]][car_poss[1]] = 'C'
         print(f"Racing car {racing_number} finished the stage!")
-        print(*matrix, sep='\n')
         break
 
     if matrix[car_poss[0]][car_poss[1]] == '.':
@@ -58,8 +57,14 @@ while command != 'End':
         km += 30
 
     command = input()
+else:
+    matrix[car_poss[0]][car_poss[1]] = 'C'
+    print(f"Racing car {racing_number} DNF.")
 
-print(km)
+print(f"Distance covered {km} km.")
+
+for i in matrix:
+    print(*i, sep='')
 
 # 5
 # 01
@@ -77,5 +82,27 @@ print(km)
 # up
 # down
 # right
+# up
+# End
+
+# 10
+# 45
+# . . . . . . . . . .
+# . . T . . . . . . .
+# . . . . . . . . . .
+# . . . . . . . . . .
+# . . . . . . . . . .
+# . . . . . . . . . .
+# . . . . . . F . . .
+# . . . . . . . . . .
+# . . . . . . . . . .
+# . . . . . . . T . .
+# right
+# down
+# down
+# right
+# up
+# left
+# up
 # up
 # End
