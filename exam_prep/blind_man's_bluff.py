@@ -16,6 +16,8 @@ for x in range(rows):
 command = input()
 
 while command != 'Finish':
+    if players_touched == total_players:
+        break
     if command == 'up':
         if dimensions_row_col[0] - 1 < 0 or matrix[dimensions_row_col[0] - 1][dimensions_row_col[1]] == 'O':
             command = input()
@@ -80,8 +82,6 @@ while command != 'Finish':
                 matrix[dimensions_row_col[0]][dimensions_row_col[1] - 1] = 'B'
                 moves_count += 1
                 dimensions_row_col[0] += 1
-    if players_touched == total_players:
-        break
     command = input()
 
 print('Game over!')

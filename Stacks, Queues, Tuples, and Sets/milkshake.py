@@ -1,7 +1,7 @@
 from collections import deque
 
-chocolate = [int(x) for x in input().split(',')]
-milk_cups = deque([int(i) for i in input().split(',')])
+chocolate = deque([int(x) for x in input().split(', ')])
+milk_cups = deque([int(i) for i in input().split(', ')])
 milkshakes = 0
 
 while True:
@@ -9,7 +9,15 @@ while True:
         if len(chocolate) > 0 and len(milk_cups) > 0:
             result = chocolate[-1] - milk_cups[0]
 
-            if chocolate[-1] <= 0 and milk_cups[0] <= 0:
+            if result == 0:
+                chocolate.pop()
+                milk_cups.popleft()
+                milkshakes += 1
+            elif chocolate[-1] > 0 and milk_cups[0] > 0:
+                milk_cups.append(milk_cups[0])
+                milk_cups.popleft()
+                chocolate[-1] -= 5
+            elif chocolate[-1] <= 0 and milk_cups[0] <= 0:
                 chocolate.pop()
                 milk_cups.popleft()
             elif chocolate[-1] <= 0 or milk_cups[0] <= 0:
@@ -17,15 +25,6 @@ while True:
                     chocolate.pop()
                 elif milk_cups[0] <= 0:
                     milk_cups.popleft()
-            else:
-                if result == 0:
-                    chocolate.pop()
-                    milk_cups.popleft()
-                    milkshakes += 1
-                else:
-                    milk_cups.append(milk_cups[0])
-                    milk_cups.popleft()
-                    chocolate[-1] -= 5
         else:
             print('Not enough milkshakes.')
             if len(chocolate) == 0 and len(milk_cups) == 0:

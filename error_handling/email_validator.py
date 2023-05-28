@@ -15,12 +15,14 @@ email = input()
 while email != 'End':
     if '@' not in email:
         raise MustContainAtSymbolError("Email must contain @")
-    if len(email[:email.index('@')]) <= 4:
+    elif len(email[:email.index('@')]) <= 4:
         raise NameTooShortError("Name must be more than 4 characters")
-    if '@' not in email:
+    elif '@' not in email:
         raise MustContainAtSymbolError("Email must contain @")
-    if email[email.index('.')::] not in ('.com', '.bg', '.org', '.net'):
+    elif email[email.index('.')::] not in ('.com', '.bg', '.org', '.net'):
         raise InvalidDomainError("Domain must be one of the following: .com, .bg, .org,.net")
+    else:
+        print('Email is valid')
     email = input()
 
 # peter@gmail.com

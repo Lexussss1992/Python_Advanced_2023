@@ -12,5 +12,7 @@ for x in range(len(matrix)):
             coordinates.append(x)
             coordinates.append(j)
 
+
+
 print(matrix)
 print(coordinates)

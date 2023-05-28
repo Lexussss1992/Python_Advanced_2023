@@ -16,4 +16,4 @@ for index, item in enumerate(matrix, start=1):
     if index % 2 == 0:
         print(*item[::-1], end='\n', sep='')
     else:
-        print(*item, end='\n',sep='')
+        print(*item, end='\n', sep='')

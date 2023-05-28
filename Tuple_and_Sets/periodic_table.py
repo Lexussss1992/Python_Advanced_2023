@@ -1,5 +1,6 @@
 n = int(input())
 elements = tuple(input().split() for i in range(n))
+print(elements)
 el_list = []
 [el_list.append(x) for i in elements for x in i]
 el_set = set()
