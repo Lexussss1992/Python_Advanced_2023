@@ -14,7 +14,7 @@ while command != 'End':
     elif command[0] == 'Replace':
         with open(command[1], 'r') as f:
             if os.path.exists(command[1]):
-                for line in open(command[1], 'r').readlines():
+                for line in open(command[1], 'r+').readlines():
                     line = line.replace(command[2], command[3])
                     f.write(line)
             else:
