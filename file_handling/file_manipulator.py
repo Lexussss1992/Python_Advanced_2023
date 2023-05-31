@@ -6,24 +6,27 @@ while command != 'End':
     command = command.split('-')
 
     if command[0] == 'Create':
-        file = open(command[1], 'w')
-        file.close()
-    elif command[0] == 'Add':
+        open(command[1], 'a+')
+
+    if command[0] == 'Add':
         with open(command[1], 'a') as f:
             f.write(command[2] + '\n')
+
     elif command[0] == 'Replace':
-        with open(command[1], 'r') as f:
-            if os.path.exists(command[1]):
-                for line in open(command[1], 'r+').readlines():
-                    line = line.replace(command[2], command[3])
-                    f.write(line)
-            else:
-                print("An error occurred")
-    # elif command[0] == 'Delete':
-    #     try:
-    #         os.remove(command[1])
-    #     except FileNotFoundError:
-    #         print("An error occurred")
+        if os.path.exists(command[1]):
+            with open(command[1], 'r+') as f:
+                text = f.read()
+                text = text.replace(command[2], command[3])
+                f.seek(0)
+                f.write(text)
+        else:
+            print("An error occurred")
+
+    elif command[0] == 'Delete':
+        try:
+            os.remove(command[1])
+        except FileNotFoundError:
+            print("An error occurred")
 
     command = input()
 
