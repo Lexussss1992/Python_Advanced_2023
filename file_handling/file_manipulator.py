@@ -8,7 +8,7 @@ while command != 'End':
     if command[0] == 'Create':
         open(command[1], 'a+')
 
-    if command[0] == 'Add':
+    elif command[0] == 'Add':
         with open(command[1], 'a') as f:
             f.write(command[2] + '\n')
 
