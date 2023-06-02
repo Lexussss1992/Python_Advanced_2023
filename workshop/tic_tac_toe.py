@@ -87,3 +87,5 @@ while user_choice == 'Y':
         user_choice = input('Do you want to play (Y/N): ')
     else:
         input('Enter a valid option (Y/N): ')
+else:
+    input('Enter a valid option (Y/N): ')
