@@ -18,12 +18,17 @@ def setup():
 
 def play(current, board):
     global counter_for_draw
-    choice = int(input(f'{current[0]} choose a free position [1-9]: '))
-    row = ceil(choice / 3) - 1
-    col = choice % 3 - 1
-    board[row][col] = current[1]
-    draw_board(board)
-    check_if_won(current, board)
+    while True:
+        choice = int(input(f'{current[0]} choose a free position [1-9]: '))
+        row = ceil(choice / 3) - 1
+        col = choice % 3 - 1
+        if board[row][col] == ' ':
+            board[row][col] = current[1]
+            draw_board(board)
+            check_if_won(current, board)
+            return False
+        else:
+            continue
 
 
 def draw_board(board):
@@ -62,6 +67,6 @@ loop = True
 counter_for_draw = 0
 
 while loop:
-    play(current, board)
     counter_for_draw += 1
+    play(current, board)
     current, other = other, current
