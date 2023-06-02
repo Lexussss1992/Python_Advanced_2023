@@ -19,16 +19,23 @@ def setup():
 def play(current, board):
     global counter_for_draw
     while True:
-        choice = int(input(f'{current[0]} choose a free position [1-9]: '))
-        row = ceil(choice / 3) - 1
-        col = choice % 3 - 1
-        if board[row][col] == ' ':
-            board[row][col] = current[1]
-            draw_board(board)
-            check_if_won(current, board)
-            return False
-        else:
-            continue
+        try:
+            choice = int(input(f'{current[0]} choose a free position [1-9]: '))
+            row = ceil(choice / 3) - 1
+            col = choice % 3 - 1
+            if not 0 < choice <= 9:
+                print('Please enter a valid number.')
+                continue
+            if board[row][col] == ' ':
+                board[row][col] = current[1]
+                draw_board(board)
+                check_if_won(current, board)
+                return False
+            else:
+                continue
+
+        except ValueError:
+            print('Please enter a valid number.')
 
 
 def draw_board(board):
@@ -56,17 +63,27 @@ def check_if_won(current, board):
         raise SystemExit
 
 
+user_choice = input('Do you want to play (Y/N): ')
 
-player_one = None
-player_two = None
-board = [[x for x in [' ' for _ in range(3)]] for _ in range(3)]
-setup()
-current = player_one
-other = player_two
-loop = True
-counter_for_draw = 0
+while user_choice == 'Y':
+    if user_choice in ('Y', 'N'):
+        if user_choice == 'Y':
+            player_one = None
+            player_two = None
+            board = [[x for x in [' ' for _ in range(3)]] for _ in range(3)]
+            setup()
+            current = player_one
+            other = player_two
+            loop = True
+            counter_for_draw = 0
 
-while loop:
-    counter_for_draw += 1
-    play(current, board)
-    current, other = other, current
+            while loop:
+                counter_for_draw += 1
+                play(current, board)
+                current, other = other, current
+        else:
+            print('Bye')
+            break
+        user_choice = input('Do you want to play (Y/N): ')
+    else:
+        input('Enter a valid option (Y/N): ')
