@@ -17,6 +17,7 @@ def setup():
 
 
 def play(current, board):
+    global counter_for_draw
     choice = int(input(f'{current[0]} choose a free position [1-9]: '))
     row = ceil(choice / 3) - 1
     col = choice % 3 - 1
@@ -45,6 +46,11 @@ def check_if_won(current, board):
     if any([first_row, second_row, third_row, first_column, second_column, third_column, first_diagonal, second_diagonal]):
         print(f'{current[0]} won!')
         loop = False
+    if counter_for_draw == 9:
+        print('Draw!')
+        raise SystemExit
+
+
 
 player_one = None
 player_two = None
@@ -53,7 +59,9 @@ setup()
 current = player_one
 other = player_two
 loop = True
+counter_for_draw = 0
 
 while loop:
     play(current, board)
+    counter_for_draw += 1
     current, other = other, current
