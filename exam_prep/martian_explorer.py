@@ -3,19 +3,19 @@ from collections import deque
 
 def check_deposits(position, coordinates):
     if position == 'R':
-        print(f'"Rover got broken at ({coordinates})"')
+        print(f'Rover got broken at ({", ".join(str(x) for x in coordinates)})')
         return False
 
     if position == 'W':
-        print(f'"Water deposit found at ({coordinates})"')
+        print(f'Water deposit found at ({", ".join(str(x) for x in coordinates)})')
         deposits['W'] += 1
 
     if position == 'M':
-        print(f'"Metal deposit found at ({coordinates})"')
+        print(f'Metal deposit found at ({", ".join(str(x) for x in coordinates)})')
         deposits['M'] += 1
 
     if position == 'C':
-        print(f'"Concrete deposit found at ({coordinates})"')
+        print(f'Concrete deposit found at ({", ".join(str(x) for x in coordinates)})')
         deposits['C'] += 1
 
 
@@ -39,8 +39,8 @@ SIZE = 6
 matrix = [input().split() for i in range(SIZE)]
 coordinates = []
 
-for i in range(len(matrix)):
-    for j in range(i):
+for i in range(SIZE):
+    for j in range(SIZE):
         if matrix[i][j] == 'E':
             coordinates.append(i)
             coordinates.append(j)
@@ -67,9 +67,13 @@ while commands:
     col = coordinates[1] + directions[command][1]
 
     coordinates = check_coordinates(SIZE, row, col)
-    position = matrix[row][col]
-    matrix[row][col] = '-'
+    position = matrix[coordinates[0]][coordinates[1]]
+    matrix[coordinates[0]][coordinates[1]] = '-'
 
-    check_deposits(position, coordinates)
+    if check_deposits(position, coordinates) is False:
+        break
 
-print(deposits)
+if all(value > 0 for value in deposits.values()):
+    print("Area suitable to start the colony.")
+else:
+    print("Area not suitable to start the colony.")
