@@ -19,6 +19,21 @@ def check_deposits(position, coordinates):
         deposits['C'] += 1
 
 
+def check_coordinates(SIZE, row, col):
+    if row > SIZE - 1:
+        pos = [0, col]
+    elif row < 0:
+        pos = [5, col]
+    elif col > SIZE - 1:
+        pos = [row, 0]
+    elif col < 0:
+        pos = [row, 5]
+    else:
+        pos = [row, col]
+
+    return pos
+
+
 SIZE = 6
 
 matrix = [input().split() for i in range(SIZE)]
@@ -51,10 +66,7 @@ while commands:
     row = coordinates[0] + directions[command][0]
     col = coordinates[1] + directions[command][1]
 
-    if not(0 <= row < SIZE and 0 <= col < SIZE):
-        break
-
-    coordinates = [row, col]
+    coordinates = check_coordinates(SIZE, row, col)
     position = matrix[row][col]
     matrix[row][col] = '-'
 
