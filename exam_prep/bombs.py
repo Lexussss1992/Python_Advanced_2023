@@ -4,43 +4,50 @@ bomb_effects = deque([int(i) for i in input().split(', ')])
 bomb_casing = deque([int(i) for i in input().split(', ')])
 
 bombs = {
-    'Datura bombs': [40, 0],
-    'Cherry bombs': [60, 0],
-    'Smoke Decoy Bombs': [120, 0]
+    'Datura Bombs': 0,
+    'Cherry Bombs': 0,
+    'Smoke Decoy Bombs': 0
 }
 
-while bomb_casing and bomb_effects:
+flag = True
+
+while flag and bomb_casing and bomb_effects:
     bomb_eff = bomb_effects.popleft()
-    bomb_case = bomb_casing[-1]
+    bomb_case = bomb_casing.pop()
     sum_bomb = bomb_eff + bomb_case
-    counter = 0
 
-    for key, value in bombs.items():
-        if sum_bomb == value[0]:
-            value[1] += 1
-            counter += 1
-            bomb_casing.pop()
+    for bomb, quantity in (('Datura Bombs', 40), ('Cherry Bombs', 60), ('Smoke Decoy Bombs', 120)):
+        if sum_bomb == quantity:
+            bombs[bomb] += 1
+            break
+    else:
+        bomb_casing.append(bomb_case - 5)
+        bomb_effects.appendleft(bomb_eff)
+        continue
 
-    if counter == 0:
-        bomb_casing[-1] -= 5
+    if all(value >= 3 for value in bombs.values()):
+        flag = False
 
-print(bombs)
 
-if all(value[1] != 0 for value in bombs.values()):
+if not flag:
     print("Bene! You have successfully filled the bomb pouch!")
 else:
     print("You don't have enough materials to fill the bomb pouch.")
 
 if bomb_effects:
-    print(f"Bomb Effects: {' '.join(str(bomb) for bomb in bomb_effects)}")
+    print(f"Bomb Effects: {', '.join(str(bomb) for bomb in bomb_effects)}")
 else:
     print("Bomb Effects: empty")
 
 if bomb_casing:
-    print(f"Bomb Casings: {' '.join(str(bomb) for bomb in bomb_casing)}")
+    print(f"Bomb Casings: {', '.join(str(bomb) for bomb in bomb_casing)}")
 else:
     print("Bomb Casings: empty")
 
+sorted_bombs = sorted(bombs.items(), key=lambda x: x[0])
+
+for key, value in sorted_bombs:
+    print(f'{key}: {value}')
 
 
 # 5, 25, 25, 115
