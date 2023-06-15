@@ -58,7 +58,10 @@ if materials:
 if magic_level:
     print(f'Magic left: {", ".join(str(i) for i in magic_level)}')
 
-for key, value in gifts.items():
+
+gifts = sorted(gifts.items(), key=lambda x: x[0])
+
+for key, value in gifts:
     print(f'{key}: {value}')
 
 # 105 20 30 25
