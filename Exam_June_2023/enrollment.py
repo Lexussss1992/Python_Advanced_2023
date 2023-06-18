@@ -1,20 +1,10 @@
 def gather_credits(credits, *args):
-    course_dict = {}
-    flag = False
-
-    for course, credit in args:
-        if course in course_dict.keys():
-            continue
-        else:
-            course_dict[course] = credit
-
     current_credits = 0
     courses = []
 
-    for key, value in course_dict.items():
+    for key, value in args:
         current_credits += value
         if current_credits >= credits:
-            flag = True
             courses.append(key)
             break
         else:
