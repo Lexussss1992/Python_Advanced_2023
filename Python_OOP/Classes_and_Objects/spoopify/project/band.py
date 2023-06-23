@@ -1,11 +1,12 @@
-from album import Album
-from song import Song
+from typing import List
+
+from project.album import Album
 
 
 class Band:
     def __init__(self, name: str):
         self.name = name
-        self.albums = []
+        self.albums: List[Album] = []
 
     def add_album(self, album: Album):
 
@@ -13,30 +14,26 @@ class Band:
 
             return f"Band {self.name} already has {album.name} in their library."
 
-        self.albums.append(album.name)
+        self.albums.append(album)
+        return f"Band {self.name} has added their newest album {album.name}."
 
     def remove_album(self, album_name: str):
+
+        try:
+            album = next(filter(lambda a: a.name == album_name, self.albums))
+        except StopIteration:
+            return f"Album {album_name} is not found."
 
         if album.published:
 
             return "Album has been published. It cannot be removed."
 
-        if album_name not in self.albums:
-
-            return f"Album {album_name} is not found."
+        self.albums.remove(album)
+        return f"Album {album_name} has been removed."
 
     def details(self):
 
-        return f"Band {self.name}" + "\n".join(str(i) for i in self.albums)
+        result = [f"Band {self.name}"]
+        [result.append(f"== {a.details()}") for a in self.albums]
 
-song = Song("Running in the 90s", 3.45, False)
-print(song.get_info())
-album = Album("Initial D", song)
-second_song = Song("Around the World", 2.34, False)
-print(album.add_song(second_song))
-print(album.details())
-print(album.publish())
-band = Band("Manuel")
-print(band.add_album(album))
-print(band.remove_album("Initial D"))
-print(band.details())
+        return "\n".join(result)
